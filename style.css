@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #4f46e5;       /* Màu chàm Indigo 600 */
+    --primary-hover: #4338ca;       /* Màu chàm tối khi hover */
+    --secondary-color: #06b6d4;     /* Màu xanh Cyan 500 */
+    --background-color: #f8fafc;    /* Màu xám nền Slate 50 */
+    --card-background: #ffffff;
+    --text-main: #0f172a;           /* Màu chữ chính Slate 900 */
+    --text-muted: #64748b;          /* Màu chữ phụ Slate 500 */
+    --border-color: #e2e8f0;        /* Màu viền Slate 200 */
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 8px -1px rgba(0, 0, 0, 0.03);
+    background-color: var(--card-background);
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.table th {
+    background-color: #f1f5f9 !important;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid var(--border-color);
+    padding: 14px 16px;
+}
+
+.table td {
+    padding: 16px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+    color: #334155; /* Màu chữ Slate 700 */
+    font-size: 0.9rem;
+}
+
+.table tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Định nghĩa lại kiểu cho các nút bấm Primary */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), #6366f1) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-hover), #4f46e5) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.btn-secondary {
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 500 !important;
+}
+
+.btn-danger {
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 500 !important;
+}
+
+/* Kiểu định dạng cho các nút hành động (Sửa/Xóa) */
+.action-btn {
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+    border: none;
+}
+
+.action-btn-edit {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.action-btn-edit:hover {
+    background-color: #bae6fd;
+    color: #0284c7;
+}
+
+.action-btn-delete {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.action-btn-delete:hover {
+    background-color: #fecaca;
+    color: #991b1b;
+}
+
+/* Kiểu định dạng cho các ô input của form */
+.form-control, .form-select {
+    border-radius: 8px !important;
+    border: 1px solid var(--border-color) !important;
+    padding: 10px 14px !important;
+    transition: all 0.2s !important;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Phần tiêu đề đầu trang với dải màu Gradient */
+.app-header {
+    background: linear-gradient(135deg, #1e1b4b, #311042);
+    color: white;
+    padding: 40px 0;
+    margin-bottom: 30px;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 10px 30px -10px rgba(30, 27, 75, 0.3);
+}
+
+.app-title {
+    font-weight: 700;
+    font-size: 2.2rem;
+    letter-spacing: -0.02em;
+}
+
+/* Kiểu định dạng phân trang tùy chỉnh */
+.pagination {
+    margin-bottom: 0;
+}
+
+.page-item .page-link {
+    border-radius: 8px !important;
+    margin: 0 3px;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-main) !important;
+    transition: all 0.2s;
+}
+
+.page-item.active .page-link {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.page-item:first-child .page-link,
+.page-item:last-child .page-link {
+    border-radius: 8px !important;
+}
+
+.page-item .page-link:hover {
+    background-color: #f1f5f9 !important;
+    color: var(--primary-color) !important;
+}
+
+.sort-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sort-link:hover {
+    color: var(--primary-color);
+}

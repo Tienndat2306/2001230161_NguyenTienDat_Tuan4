@@ -1,23 +1,65 @@
 <?php
-// BÀI TẬP 01: Thiết lập kết nối tới CSDL MySQL bằng lớp PDO (PHP Data Objects)
-$dsn = "mysql:host=localhost;dbname=labdb;charset=utf8mb4";
+$host = "localhost";
+$db = "labdb";
 $username = "root";
 $password = "";
 
 try {
-    // Khởi tạo đối tượng PDO
-    $conn = new PDO($dsn, $username, $password);
-    
-    // Thiết lập thuộc tính báo lỗi của PDO dưới dạng ngoại lệ (Exception)
+    // Kết nối MySQL Server
+    $conn = new PDO(
+        "mysql:host=$host;charset=utf8mb4",
+        $username,
+        $password
+    );
+
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // In thông báo nếu chạy trực tiếp file connect.php
+
+    // Tạo Database nếu chưa có
+    $conn->exec("
+        CREATE DATABASE IF NOT EXISTS `$db`
+        CHARACTER SET utf8mb4
+        COLLATE utf8mb4_unicode_ci
+    ");
+
+    // Kết nối lại vào Database
+    $dsn = "mysql:host=$host;dbname=$db;charset=utf8mb4";
+
+    $conn = new PDO($dsn, $username, $password);
+
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
     if (basename($_SERVER['SCRIPT_FILENAME']) === 'connect.php') {
-        echo "<div style='color: green; font-weight: bold;'>Kết nối thành công!</div>";
+        echo "<h3>Kết nối thành công!</h3>";
+    }
+
+    $conn->exec("
+        CREATE TABLE IF NOT EXISTS students (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        email VARCHAR(100) UNIQUE,
+        phone VARCHAR(20)
+        );
+    ");
+
+    $conn->exec("
+        INSERT IGNORE INTO students(name,email,phone)
+        VALUES
+        ('Nguyen Van A','a@example.com','0123456789'),
+        ('Tran Thi B','b@example.com','0987654321')
+    ");
+
+    $checkColumn = $conn->query("
+        SELECT COUNT(*) 
+        FROM INFORMATION_SCHEMA.COLUMNS 
+        WHERE TABLE_SCHEMA = '$db' 
+        AND TABLE_NAME = 'students' 
+        AND COLUMN_NAME = 'birthday'
+    ")->fetchColumn();
+
+    if ($checkColumn == 0) {
+        $conn->exec("ALTER TABLE students ADD COLUMN birthday DATE;");
     }
 } catch (PDOException $e) {
-    // Xử lý lỗi nếu kết nối thất bại
-    die("<div style='color: red; font-weight: bold;'>Kết nối thất bại: " . $e->getMessage() . "</div>");
-}
-?>
 
+    die($e->getMessage());
+}
